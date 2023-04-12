@@ -3,9 +3,10 @@
   "description": "Console kernel for SymbioticPHP, based on symfony/console",
   "license": "MIT",
   "keywords": [],
-  "version": "1.4.0",
+  "version": "1.4.2",
   "require": {
-    "symfony/console": "v6.0.*"
+    "php": ">=8.0",
+    "symfony/console": ">=v6.0.19"
   },
   "autoload": {
     "psr-4": {

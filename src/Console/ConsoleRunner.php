@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace Symbiotic\Console;
@@ -13,13 +14,20 @@ class ConsoleRunner extends Runner
         return $this->core['env'] === 'console';
     }
 
-    public function run(): bool
-    {
-       $consoleApp = new ConsoleApplication();
-       $consoleApp->setCommandLoader($this->core->make(CommandsLoader::class));
 
-       return empty($consoleApp->run());
+    private function bootstrap()
+    {
+        if (!$this->core->isBooted()) {
+            $this->core->bootstrap();
+        }
     }
 
+    public function run(): bool
+    {
+        $this->bootstrap();
+        $consoleApp = new ConsoleApplication();
+        $consoleApp->setCommandLoader($this->core->make(CommandsLoader::class));
 
+        return empty($consoleApp->run());
+    }
 }

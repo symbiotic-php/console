@@ -28,7 +28,7 @@ class CommandsLoader implements CommandLoaderInterface
     public function has(string $name): bool
     {
         $split = Str::sc($name, ':');
-        if (is_array($split)) {
+        if (\is_array($split)) {
             return isset($this->getPackageCommands($split[0])[$name]);
         }
 
@@ -39,7 +39,7 @@ class CommandsLoader implements CommandLoaderInterface
     {
         $names = [];
         foreach ($this->packages->getIds() as $id) {
-            $names = array_merge($names, array_keys($this->getPackageCommands($id)));
+            $names = \array_merge($names, \array_keys($this->getPackageCommands($id)));
         }
         $this->names = $names;
         return $this->names;
@@ -51,7 +51,7 @@ class CommandsLoader implements CommandLoaderInterface
         if ($this->packages->has($id)) {
             $config = $this->packages->getPackageConfig($id);
             $commands = $config->get('commands');
-            if (is_array($commands)) {
+            if (\is_array($commands)) {
                 foreach ($commands as $name => $class) {
                     $result[$id . ':' . $name] = $class;
                 }
@@ -69,7 +69,7 @@ class CommandsLoader implements CommandLoaderInterface
     public function get(string $name): Command
     {
         $package_command = Str::sc($name, ':');
-        if (is_array($package_command)) {
+        if (\is_array($package_command)) {
             $package_id = $package_command[0];
             $commands = $this->getPackageCommands($package_id);
             if (!isset($commands[$name])) {
